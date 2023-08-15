@@ -2,19 +2,17 @@ version: 2.1
 
 jobs:
   print-hello:
-  environment:
-    RAIN: thao
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run: echo $RAIN
-  print-world:
     environment:
-      RAIN: thao
+      BASH_ENV: hihi
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo $RAIN
+      - run: echo $BASH_ENV
+  print-world:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: echo world
 
 workflows:
   say-hello-workflow:
