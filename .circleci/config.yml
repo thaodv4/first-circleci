@@ -8,6 +8,16 @@ commands:
         default: "Hello World"
     steps:
       - run: echo "Hello << parameters.to >>"
+      - run:
+          name: Run commands
+          command: |
+              echo "I will exit"
+              exit 1
+      - run:
+          name: run on fail
+          command: |
+              echo "run fail"
+          when: on_fail
 
 jobs:
   say-hello:
