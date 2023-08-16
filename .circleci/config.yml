@@ -16,7 +16,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - sayhello:
-        to: "hihihi"
+          to: "hihihi"
 
   # print-hello:
   #   environment:
