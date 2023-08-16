@@ -1,23 +1,43 @@
 version: 2.1
 
 jobs:
-  print-hello:
-    environment:
-      BASH_ENV: hihi
+  # print-hello:
+  #   environment:
+  #     BASH_ENV: hihi
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - run: echo $BASH_ENV
+  # print-world:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - run: echo world
+  save_hello_world_output:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo $BASH_ENV
-  print-world:
+      - run: echo "hello" > ~/output.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - output.txt
+  print-output-file:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo world
+      - attach_workspace:
+          at: ~/
+      - run: cat ~/output.txt
 
 workflows:
   say-hello-workflow:
     jobs:
-      - print-hello
-      - print-world:
+      - save_hello_world_output
+      - print-output-file
           requires:
-            - print-hello
+            - save_hello_world_output
+      # - print-hello
+      # - print-world:
+      #     requires:
+      #       - print-hello
