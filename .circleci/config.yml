@@ -2,7 +2,6 @@ version: 2.1
 
 commands:
   sayhello:
-    descripiton: "HIHI"
     parameters:
       to:
         type: string
