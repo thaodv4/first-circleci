@@ -1,6 +1,23 @@
 version: 2.1
 
+commands:
+  sayhello:
+    descripiton: "HIHI"
+    parameters:
+      to:
+        type: string
+        default: "Hello World"
+    steps:
+      - run: echo << parameters.to>>
+
 jobs:
+  say-hello:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - sayhello:
+        to: "hihihi"
+
   # print-hello:
   #   environment:
   #     BASH_ENV: hihi
@@ -13,30 +30,30 @@ jobs:
   #     - image: circleci/node:13.8.0
   #   steps:
   #     - run: echo world
-  save_hello_world_output:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run: echo "hello" > ~/output.txt
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - output.txt
-  print-output-file:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: cat ~/output.txt
+  # save_hello_world_output:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - run: echo "hello" > ~/output.txt
+  #     - persist_to_workspace:
+  #         root: ~/
+  #         paths:
+  #           - output.txt
+  # print-output-file:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run: cat ~/output.txt
 
 workflows:
   say-hello-workflow:
     jobs:
-      - save_hello_world_output
-      - print-output-file:
-          requires:
-            - save_hello_world_output
+      # - save_hello_world_output
+      # - print-output-file:
+      #     requires:
+      #       - save_hello_world_output
       # - print-hello
       # - print-world:
       #     requires:
