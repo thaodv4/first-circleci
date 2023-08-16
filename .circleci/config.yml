@@ -8,7 +8,7 @@ commands:
         type: string
         default: "Hello World"
     steps:
-      - run: echo << parameters.to >>
+      - run: echo "Hello << parameters.to >>"
 
 jobs:
   say-hello:
